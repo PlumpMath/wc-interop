@@ -1,8 +1,7 @@
 var componentPrototype = Object.create(HTMLButtonElement.prototype);
 
 componentPrototype.createdCallback = function() {
-	console.log('is this called?');
-	this.appendChild(document.createTextNode('ding dong?'));
+	this.innerHTML = 'ding!';
 };
 
 function register(name) {
