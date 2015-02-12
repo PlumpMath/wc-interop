@@ -1,9 +1,9 @@
 var RandomSquare = require('../../components/RandomSquare');
-var bellButton = require('../../components/bellButton');
+var BellButton = require('../../components/BellButton');
 var $ = require('jquery');
 
 RandomSquare.register('random-square');
-bellButton.register('bell-button');
+BellButton.register('bell-button');
 
 // Instancing totally custom element
 (function() {
@@ -33,5 +33,10 @@ bellButton.register('bell-button');
 })();
 
 // TODO: attributes
+(function() {
+	
+});
+
 // TODO: callbacks
+// TODO: events, listeners
 // TODO: calling methods on the instance
