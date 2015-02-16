@@ -8,6 +8,7 @@ function makeGetter(obj, prop) {
 
 function makeSetter(obj, prop) {
 	return function(v) {
+		console.log('set', obj, prop, v);
 		obj.setAttribute(prop, v);
 	};
 }
@@ -40,6 +41,8 @@ componentPrototype.createdCallback = function() {
 	this._canvas = canvas;
 	this.appendChild(canvas);
 
+	this._readAttributes();
+	
 	// And trigger the initial render
 	this._render();
 
@@ -51,11 +54,13 @@ componentPrototype.attributeChangedCallback = function(name, oldValue, newValue,
 };
 
 componentPrototype._readAttributes = function() {
+	console.log('read attributes', this);
 	var props = this._properties;
 	var keys = Object.keys(props);
 	var self = this;
 	keys.forEach(function(k) {
 		var value = self.getAttribute(k);
+		console.log(k, value);
 		if(value !== null) {
 			props[k] = value;
 		}

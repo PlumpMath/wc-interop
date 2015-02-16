@@ -3,7 +3,7 @@ var BellButton = require('../../components/BellButton');
 var React = require('react');
 
 RandomSquare.register('random-square');
-BellButton.register('bell-button');
+BellButton.register('bell-button'); // TODO use result of this <- to instance elment and mix with R.createElement?
 
 var HelloMessage = React.createClass({
 	render: function() {
@@ -76,6 +76,22 @@ var ComponentWithBellButton = React.createClass({
 React.render(
 	<ComponentWithBellButton />,
 	document.getElementById('componentWithBellButton')
+);
+
+// Attributes and properties
+
+// NOTWORKING react doesn't pass the custom attribute `colour` but it does pass `width` and `height`
+var SquareWithAttribute = React.createClass({
+	render: function() {
+		return (
+			React.createElement('random-square', { width: 150, height: 25, colour: '#f0f' })
+		);
+	}
+});
+
+React.render(
+	<SquareWithAttribute />,
+	document.getElementById('squareWithAttribute')
 );
 
 
