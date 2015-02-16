@@ -27,6 +27,7 @@ BellButton.register('bell-button');
 	$('body').append(instanceB);
 
 	// 3) but this doesn't work. The proper prototype doesn't seem to be used, an "empty" button is rendered
+	// NOTWORKING Using the is= attribute after creating element instance w/jQuery constructor, the wrong prototype will be used
 	var instanceC = $('<button>');
 	instanceC.attr('is', 'bell-button');
 	$('body').append(instanceC);
