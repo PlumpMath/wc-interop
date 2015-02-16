@@ -16,6 +16,7 @@ componentPrototype.randomise = function() {
 	var ctx = canvas.getContext('2d');
 	var randomColour = Math.floor(0xFFFFFF * Math.random());
 	var hexColour = '#' + randomColour.toString(16);
+	this._colour = hexColour;
 	ctx.fillStyle = hexColour;
 	ctx.fillRect(0, 0, w, h);
 };
