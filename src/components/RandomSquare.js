@@ -8,7 +8,6 @@ function makeGetter(obj, prop) {
 
 function makeSetter(obj, prop) {
 	return function(v) {
-		console.log(obj, prop, v);
 		obj.setAttribute(prop, v);
 	};
 }
@@ -68,7 +67,7 @@ componentPrototype._render = function() {
 	var w = prop.width;
 	var h = prop.height;
 	var fillStyle = prop.colour;
-	
+
 	var canvas = this._canvas;
 	canvas.width = w;
 	canvas.height = h;
