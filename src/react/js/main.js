@@ -18,7 +18,7 @@ React.render(
 
 /* NOTWORKING - React won't render custom elements by name
  * It's probably more of a JSX limitation maybe?
- * Commented out because it would crash the build.
+ * This section is commented out because it crashes the build.
 var RandomSquareReact = React.createClass({
 	render: function() {
 		return <random-square></random-square>
@@ -31,11 +31,16 @@ React.render(
 );
 */
 
-// But instancing the element directly without using the JSX syntax DOES work
+// Instancing the element directly without using the JSX syntax seems to work,
+// but only for elements that inherit from the HTMLElement prototype
 var RandomSquareReact = React.createClass({
 	render: function() {
 		return (
-			React.createElement('random-square')
+			React.createElement('div', null, [
+				'should show two children: ',
+				React.createElement('random-square'),
+				React.createElement('bell-button') // <- NOTWORKING the actual instance doesn't seem to use the proper prototype
+			])
 		)
 	}
 });
