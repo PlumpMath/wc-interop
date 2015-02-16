@@ -5,20 +5,12 @@ var React = require('react');
 RandomSquare.register('random-square');
 BellButton.register('bell-button'); // TODO use result of this <- to instance elment and mix with R.createElement?
 
-var HelloMessage = React.createClass({
-	render: function() {
-		return <div>Hello {this.props.name}</div>;
-	}
-});
-
-React.render(
-	<HelloMessage name="Lalala" />,
-	document.getElementById('container')
-);
-
 /* NOTWORKING - React won't render custom elements by name
  * It's probably more of a JSX limitation maybe?
  * This section is commented out because it crashes the build.
+ * 
+ * (Today it doesn't work with React 0.12 - but it should work on 0.13
+ * https://github.com/facebook/react/pull/2830)
 var RandomSquareReact = React.createClass({
 	render: function() {
 		return <random-square></random-square>
@@ -33,7 +25,7 @@ React.render(
 
 // Instancing the element directly without using the JSX syntax seems to work,
 // but only for elements that inherit from the HTMLElement prototype
-var RandomSquareReact = React.createClass({
+var BunchaElements = React.createClass({
 	render: function() {
 		return (
 			React.createElement('div', null, [
@@ -46,7 +38,7 @@ var RandomSquareReact = React.createClass({
 });
 
 React.render(
-	<RandomSquareReact />,
+	<BunchaElements />,
 	document.getElementById('randomSquareReact')
 );
 
@@ -80,7 +72,8 @@ React.render(
 
 // Attributes and properties
 
-// NOTWORKING react doesn't pass the custom attribute `colour` but it does pass `width` and `height`
+// NOTWORKING react doesn't pass the custom attribute `colour` but it does pass `width` and `height` (why???)
+// this is why->https://github.com/facebook/react/issues/2746
 var SquareWithAttribute = React.createClass({
 	render: function() {
 		return (
@@ -94,4 +87,23 @@ React.render(
 	document.getElementById('squareWithAttribute')
 );
 
+/*
+// TODO how do I access the created element? aghh
+var RandomSquareReact = React.createClass({
+	render: function() {
+		return (
+			React.createElement('random-square')
+		);
+	}
+});
+
+var tmpDiv = document.createElement('div');
+document.body.appendChild(tmpDiv);
+var res = React.render(
+	<span ref="agh">
+		<RandomSquareReact />
+	</span>, tmpDiv);
+
+
+*/
 
