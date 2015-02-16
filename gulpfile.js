@@ -6,11 +6,16 @@ var reactify = require('reactify');
 var SRC = path.join(__dirname, 'src');
 var BUILD = path.join(__dirname, 'build');
 
-gulp.task('build', ['build-lib', 'build-jquery', 'build-react']);
+gulp.task('build', ['build-lib', 'build-css', 'build-jquery', 'build-react']);
 
 gulp.task('build-lib', function() {
 	return gulp.src(path.join(SRC, 'lib/**/*'))
 		.pipe(gulp.dest(path.join(BUILD, 'lib')));
+});
+
+gulp.task('build-css', function() {
+	return gulp.src(path.join(SRC, 'css/**/*'))
+		.pipe(gulp.dest(path.join(BUILD, 'css')));
 });
 
 // jQuery
