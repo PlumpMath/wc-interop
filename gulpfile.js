@@ -2,11 +2,17 @@ var path = require('path');
 var gulp = require('gulp');
 var browserify = require('gulp-browserify');
 var reactify = require('reactify');
+var bower = require('gulp-bower');
 
 var SRC = path.join(__dirname, 'src');
 var BUILD = path.join(__dirname, 'build');
 
-gulp.task('build', ['build-lib', 'build-css', 'build-jquery', 'build-react']);
+gulp.task('build', ['build-lib', 'build-css', 'build-jquery', 'build-react', 'build-ember']);
+
+gulp.task('bower', function() {
+	return bower()
+		.pipe(gulp.dest(path.join(BUILD, 'bower')));
+});
 
 gulp.task('build-lib', function() {
 	return gulp.src(path.join(SRC, 'lib/**/*'))
@@ -49,6 +55,21 @@ gulp.task('build-react-html', function() {
 });
 
 
+// Ember
+gulp.task('build-ember', [ 'bower', 'build-ember-js', 'build-ember-html' ]);
+
+gulp.task('build-ember-js', function() {
+	return gulp.src(path.join(SRC, 'ember', 'js/main.js'))
+		.pipe(browserify())
+		.pipe(gulp.dest(path.join(BUILD, 'ember', 'js')));
+});
+
+gulp.task('build-ember-html', function() {
+	return gulp.src(path.join(SRC, 'ember', 'index.html'))
+		.pipe(gulp.dest(path.join(BUILD, 'ember')));
+});
+
+// TODO refactor all the path making code-it's getting so repetitively ugly
 
 gulp.task('watch', function() {
 	gulp.watch('src/**/*', ['build']);

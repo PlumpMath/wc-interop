@@ -1,0 +1,8 @@
+{
+    "name": "ember-cannot-npm-how-sad",
+    "dependencies": {
+        "ember": "~1.10",
+        "ember-data": "~1.0.0"
+    }
+}
+
