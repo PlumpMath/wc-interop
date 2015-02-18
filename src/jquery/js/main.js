@@ -57,7 +57,7 @@ BellButton.register('bell-button');
 	// Otherwise you're setting the `width` property of the Array/query
 	realSquare.width = 15;
 
-	// It's fine if you create the object with createElement, but that kinda defeats jQuery 'easy of use' I guess
+	// It's fine if you create the object with createElement, but that kinda defeats jQuery 'ease of use' I guess
 	var anotherRealSquare = document.createElement('random-square');
 	anotherRealSquare.width = 50;
 	anotherRealSquare.colour = '#000';
