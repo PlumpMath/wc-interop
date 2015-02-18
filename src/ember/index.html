@@ -18,6 +18,7 @@
 			<!--NOTWORKING custom elements specified in a variable if printed with HTML escaping (obvs)-->
 			<p>Using the element in a variable (value set in main.js) {{randomSquare}} (won't work because of HTML escaping)</p>
 			<p>Same but without escaping {{{randomSquare}}} {{{randomSquareWithAttributes}}}</p>
+			<p>Bind attributes to the controller (and also update them based on an slider) {{input type="range" value=squareWidth step="1" min="1" max="200" }} <random-square {{bind-attr width=squareWidth}}></random-square></p>
 		</script>
 
 		<!--<script type="text/x-handlebars" data-template-name="wcinterop">

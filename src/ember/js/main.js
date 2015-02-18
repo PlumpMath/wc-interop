@@ -14,6 +14,7 @@ window.App = Ember.Application.create();
 
 App.ApplicationController = Ember.Controller.extend({
 	randomSquare: '<random-square></random-square>',
-	randomSquareWithAttributes: '<random-square width="50" height="25"></random-square>'
+	randomSquareWithAttributes: '<random-square width="50" height="25"></random-square>',
+	squareWidth: 200
 
 });
