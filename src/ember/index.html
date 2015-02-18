@@ -6,10 +6,22 @@
 		<link rel="stylesheet" href="../css/style.css">
 		<script src="../lib/webcomponents.js"></script>
 		<script src="../bower/jquery/dist/jquery.js"></script>
+		<script src="../bower/handlebars/handlebars.runtime.js"></script>
+		<script src="../bower/ember/ember-template-compiler.js"></script>
 		<script src="../bower/ember/ember.debug.js"></script>
 		<script src="js/main.js" defer></script>
 	</head>
 	<body>
 		<h1>Ember</h1>
+		<script type="text/x-handlebars">
+			<p>Create using custom element embedded in the template: <random-square></random-square> <random-square width="50" height="25"></random-square></p>
+			<!--NOTWORKING custom elements specified in a variable if printed with HTML escaping (obvs)-->
+			<p>Using the element in a variable (value set in main.js) {{randomSquare}} (won't work because of HTML escaping)</p>
+			<p>Same but without escaping {{{randomSquare}}} {{{randomSquareWithAttributes}}}</p>
+		</script>
+
+		<!--<script type="text/x-handlebars" data-template-name="wcinterop">
+			!bam! {{variable}}
+		</script>-->
 	</body>
 </html>
