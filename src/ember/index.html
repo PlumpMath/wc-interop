@@ -19,6 +19,18 @@
 			<p>Using the element in a variable (value set in main.js) {{randomSquare}} (won't work because of HTML escaping)</p>
 			<p>Same but without escaping {{{randomSquare}}} {{{randomSquareWithAttributes}}}</p>
 			<p>Bind attributes to the controller (and also update them based on an slider) {{input type="range" value=squareWidth step="1" min="1" max="200" }} <random-square {{bind-attr width=squareWidth}}></random-square></p>
+			<p>Using a custom element in an Ember component {{random-square}} {{bell-button}}
+			<!--NOTWORKING Ember elements get wrapped on a div class="ember-view" so this extra markup can be annoying-->
+			</p>
+		</script>
+
+		<script type="text/x-handlebars" id="components/random-square">
+			<random-square></random-square>
+		</script>
+
+		<script type="text/x-handlebars" id="components/bell-button">
+			<!-- NOTWORKING: using the is= method to define elements when inside an ember component. Wrong prototype set in the button-->
+			<button is="bell-button"></button>
 		</script>
 
 		<!--<script type="text/x-handlebars" data-template-name="wcinterop">
