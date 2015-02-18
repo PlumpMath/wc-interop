@@ -10,8 +10,11 @@ function makeSetter(obj, prop) {
 	return function(v) {
 		console.log('set', obj, prop, v);
 		obj.setAttribute(prop, v);
+		obj._properties[prop] = v;
 	};
 }
+
+var squareCount = 0;
 
 // properties
 // - default values
@@ -26,6 +29,8 @@ componentPrototype.createdCallback = function() {
 	};
 	this._properties = properties;
 
+	properties.id = squareCount++;
+
 	var self = this;
 	Object.keys(properties).forEach(function defProp(k) {
 		Object.defineProperty(self, k, {
@@ -35,8 +40,7 @@ componentPrototype.createdCallback = function() {
 	});
 
 	this._randomise();
-
-	// Set up the DOM
+	
 	var canvas = document.createElement('canvas');
 	this._canvas = canvas;
 	this.appendChild(canvas);
@@ -72,7 +76,7 @@ componentPrototype._render = function() {
 	var w = prop.width;
 	var h = prop.height;
 	var fillStyle = prop.colour;
-
+	
 	var canvas = this._canvas;
 	canvas.width = w;
 	canvas.height = h;
@@ -80,6 +84,16 @@ componentPrototype._render = function() {
 	var ctx = canvas.getContext('2d');
 	ctx.fillStyle = fillStyle;
 	ctx.fillRect(0, 0, w, h);
+
+	var id = prop.id + "";
+	var tm = ctx.measureText(id);
+	var px = (w ) / 2 - tm.width;
+	var py = (h ) / 2;
+	ctx.font = '28px monospace';
+	ctx.fillStyle = '#000';
+	ctx.fillText(id, px, py);
+	ctx.fillStyle = '#fff';
+	ctx.fillText(id, px - 1, py - 1);
 };
 
 componentPrototype._randomise = function() {

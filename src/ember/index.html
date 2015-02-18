@@ -20,12 +20,23 @@
 			<p>Same but without escaping {{{randomSquare}}} {{{randomSquareWithAttributes}}}</p>
 			<p>Bind attributes to the controller (and also update them based on an slider) {{input type="range" value=squareWidth step="1" min="1" max="200" }} <random-square {{bind-attr width=squareWidth}}></random-square></p>
 			<p>Using a custom element in an Ember component {{random-square}} {{bell-button}}
-			<!--NOTWORKING Ember elements get wrapped on a div class="ember-view" so this extra markup can be annoying-->
+			<!--NOTWORKING Ember elements get wrapped on a div class="ember-view" unless you change that to something else by defining the class in code and setting its tagName (see main.js and `BellButtonComponent` which uses a `span`) -->
 			</p>
+			<p>
+				<!--NOTWORKING binding attribute to an ember component. weird, and why?-->
+				Or just the square without wrapping tag: {{just-square width=squareWidth}}
+			</p>
+			<!--NOTWORKING for some odd and obscure reason there's a duplicate empty transparent canvas inside these components-->
+			<p>x{{random-square}}x</p>
+			<p>x{{random-square}}x</p>
+			<random-square></random-square>
 		</script>
 
 		<script type="text/x-handlebars" id="components/random-square">
 			<random-square></random-square>
+		</script>
+
+		<script type="text/x-handlebars" id="components/just-square">
 		</script>
 
 		<script type="text/x-handlebars" id="components/bell-button">
