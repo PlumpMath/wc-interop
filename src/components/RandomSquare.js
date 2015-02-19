@@ -16,11 +16,15 @@ function makeSetter(obj, prop) {
 
 var squareCount = 0;
 
-// properties
-// - default values
-// - exposed as attributes so propertySetter -> attribute update
-// - attribute update -> propertySet
 componentPrototype.createdCallback = function() {
+//debugger;
+	// NOTWORKING don't use id properties in elements, Ember will overwrite it if they're views
+	// Using _ because Ember seems to be setting both the attribute and the property on the object,
+	// so that taints the value we set here
+	console.info('CREATEDCALLBACK');
+	this._id = squareCount++;
+
+	this.setAttribute('myid', this._id);
 
 	var properties = {
 		width: 100,
@@ -28,8 +32,6 @@ componentPrototype.createdCallback = function() {
 		colour: '#f0f'
 	};
 	this._properties = properties;
-
-	properties.id = squareCount++;
 
 	var self = this;
 	Object.keys(properties).forEach(function defProp(k) {
@@ -40,11 +42,15 @@ componentPrototype.createdCallback = function() {
 	});
 
 	this._randomise();
+
+	// The weirdest. If we run this, neither Ember or Angular will create the duplicated canvas thing.
+	// this.innerHTML = '';
 	
 	var canvas = document.createElement('canvas');
 	this._canvas = canvas;
 	this.appendChild(canvas);
 
+	console.log('read1');
 	this._readAttributes();
 	
 	// And trigger the initial render
@@ -53,6 +59,7 @@ componentPrototype.createdCallback = function() {
 };
 
 componentPrototype.attributeChangedCallback = function(name, oldValue, newValue, nameSpace) {
+	console.log('attribute changed', name, oldValue, newValue);
 	this._readAttributes();
 	this._render();
 };
@@ -73,11 +80,18 @@ componentPrototype._readAttributes = function() {
 
 componentPrototype._render = function() {
 	var prop = this._properties;
-	var w = prop.width;
-	var h = prop.height;
+	var w = Number(prop.width);
+	var h = Number(prop.height);
+	var id = this._id + "";
 	var fillStyle = prop.colour;
-	
+	console.log('render', id, this.querySelectorAll('canvas').length);
 	var canvas = this._canvas;
+
+	if(isNaN(w) || isNaN(h)) {
+		console.log('not numbers', prop.width, prop.height);
+		return;
+	}
+
 	canvas.width = w;
 	canvas.height = h;
 
@@ -85,7 +99,6 @@ componentPrototype._render = function() {
 	ctx.fillStyle = fillStyle;
 	ctx.fillRect(0, 0, w, h);
 
-	var id = prop.id + "";
 	var tm = ctx.measureText(id);
 	var px = (w ) / 2 - tm.width;
 	var py = (h ) / 2;

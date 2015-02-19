@@ -3,3 +3,7 @@ body > div {
 	padding: 1rem;
 	margin: 1rem 0;
 }
+
+canvas {
+	border: 1px solid #666;
+}
