@@ -3,13 +3,14 @@ var gulp = require('gulp');
 var browserify = require('gulp-browserify');
 var reactify = require('reactify');
 var bower = require('gulp-bower');
+var exposify = require('exposify');
 
 var SRC = path.join(__dirname, 'src');
 var BUILD = path.join(__dirname, 'build');
 
 var paths = getPaths(['jquery', 'react', 'ember', 'angular']);
 
-gulp.task('build', ['build-lib', 'build-css', 'build-jquery', 'build-react', 'build-ember']);
+gulp.task('build', ['build-lib', 'build-css', 'build-jquery', 'build-react', 'build-ember', 'build-angular']);
 
 gulp.task('bower', function() {
 	return bower()
@@ -82,6 +83,42 @@ function getPaths(frameworks) {
 	});
 	return out;
 }
+
+// Angular
+gulp.task('build-angular', [ 'build-angular-js', 'build-angular-html']);
+
+gulp.task('copy-angular', function() {
+
+	var angularLib = path.join(__dirname, 'node_modules', 'angular', 'angular.js');
+	var dst = path.join(paths.angular.html.dst, 'js');
+	console.log(angularLib, dst);
+	return gulp.src(angularLib)
+		.pipe(gulp.dest(dst));
+
+});
+
+gulp.task('build-angular-js', function() {
+
+	exposify.config = {
+		expose: {
+			angular: 'angular'
+		}
+	};
+	
+	return gulp.src(paths.angular.js.src)
+		.pipe(browserify({
+			transform: [ exposify ]
+		}))
+		.pipe(gulp.dest(paths.angular.js.dst));
+
+});
+
+gulp.task('build-angular-html', function() {
+	return gulp.src(paths.angular.html.src)
+		.pipe(gulp.dest(paths.angular.html.dst));
+});
+
+//
 
 function getPathsJS(framework) {
 	return {
