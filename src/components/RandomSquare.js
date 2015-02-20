@@ -17,7 +17,7 @@ function makeSetter(obj, prop) {
 var squareCount = 0;
 
 componentPrototype.createdCallback = function() {
-//debugger;
+
 	// NOTWORKING don't use id properties in elements, Ember will overwrite it if they're views
 	// Using _ because Ember seems to be setting both the attribute and the property on the object,
 	// so that taints the value we set here
@@ -43,8 +43,16 @@ componentPrototype.createdCallback = function() {
 
 	this._randomise();
 
-	// The weirdest. If we run this, neither Ember or Angular will create the duplicated canvas thing.
-	// this.innerHTML = '';
+	// This is to prevent Ember/Angular creating instances of this component *with an extraneous canvas*
+	this.innerHTML = '';
+
+	// This is because in order to make instances of the components (for looping, or when using the custom
+	// element inside e.g. an Ember component) the framework clones the element as-is, and since at this point it
+	// has already called its createdCallback method it already has a canvas child.
+	// So the next time the element is created by cloning, it is created *with the canvas child* already
+	// and then the createdCallback is called. Which creates another canvas!
+	// And that's why if we set innerHTML to '' we nullify the extraneous canvas.
+
 	
 	var canvas = document.createElement('canvas');
 	this._canvas = canvas;
@@ -62,6 +70,10 @@ componentPrototype.attributeChangedCallback = function(name, oldValue, newValue,
 	console.log('attribute changed', name, oldValue, newValue);
 	this._readAttributes();
 	this._render();
+};
+
+componentPrototype.detachedCallback = function() {
+	console.info('RandomSquare ', this._id, 'was detached');
 };
 
 componentPrototype._readAttributes = function() {
