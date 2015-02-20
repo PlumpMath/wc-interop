@@ -18,6 +18,17 @@
 				<!--NOTWORKING even if you don't expect the loop to run because squares.length is 0, the element will be created anyway, and removed from the DOM it seems-->
 				<random-square width="{{square.width}}" height="{{square.height}}"></random-square>
 			</span>
+			<!--NOTWORKING HTML code will be escaped so you can't 'innerHTML'style create markup in the controller-->
+			<span ng-repeat="bell in bellbuttons">
+				{{bell}}
+			</span>
+		</div>
+		<div>
+			<!--NOTWORKING I would expect the binding to read the initial values from the inputs and assign them to the square but it doesn't.-->
+			<p>Changing attributes of custom element using the dynamic binding magic thing:</p>
+			<label>Width: <input type="text" ng-model="squareWidth" value="50"></label>
+			<label>Height: <input type="text" ng-model="squareHeight" value="50"></label>
+			<random-square width="{{squareWidth}}" height="{{squareHeight}}"></random-square>
 		</div>
 	</body>
 </html>
