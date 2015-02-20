@@ -18,7 +18,7 @@
 				<!--NOTWORKING even if you don't expect the loop to run because squares.length is 0, the element will be created anyway, and removed from the DOM it seems-->
 				<random-square width="{{square.width}}" height="{{square.height}}"></random-square>
 			</span>
-			<!--NOTWORKING HTML code will be escaped so you can't 'innerHTML'style create markup in the controller-->
+			<!--NOTWORKING HTML code will be escaped so you can't 'innerHTML'style create markup in the controller unless you're using directives-->
 			<span ng-repeat="bell in bellbuttons">
 				{{bell}}
 			</span>
@@ -30,5 +30,26 @@
 			<label>Height: <input type="text" ng-model="squareHeight" value="50"></label>
 			<random-square width="{{squareWidth}}" height="{{squareHeight}}"></random-square>
 		</div>
+
+		<!--now with directives-->
+		<squareotron>
+			<square width="25" height="25"></square>
+			<square width="50" height="50"></square>
+		</squareotron>
+
+		<tabs>
+		  <pane title="Localization" width="50" height="25">
+			Date: {{ '2012-04-01' | date:'fullDate' }} <br>
+			Currency: {{ 123456 | currency }} <br>
+			Number: {{ 98765.4321 | number }} <br>
+		  </pane>
+		  <pane title="Pluralization" width="25" height="25">
+			<div ng-controller="BeerCounter">
+			  <div ng-repeat="beerCount in beers">
+				<ng-pluralize count="beerCount" when="beerForms"></ng-pluralize>
+			  </div>
+			</div>
+		  </pane>
+		</tabs>
 	</body>
 </html>
