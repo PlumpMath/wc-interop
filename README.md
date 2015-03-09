@@ -9,14 +9,6 @@ cd wc-interop
 grep -lr 'NOTWORKING' src/*
 ```
 
-## Further reading / "blogography"
+## Why did you do this, sole?
 
-### jQuery
-
-???
-
-### React
-
-* [React tutorial](http://facebook.github.io/react/docs/tutorial.html)
-* [Component interop with React and Custom Elements](http://addyosmani.com/blog/component-interop-with-react-and-custom-elements/)
-* [Browserify and gulp with React](https://hacks.mozilla.org/2014/08/browserify-and-gulp-with-react/)
+This was built for my jQuery UK 2015 talk.
