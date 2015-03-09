@@ -41,7 +41,7 @@ componentPrototype.createdCallback = function() {
 		});
 	});
 
-	this._randomise();
+	this._randomiseColour();
 
 	// This is to prevent Ember/Angular creating instances of this component *with an extraneous canvas*
 	this.innerHTML = '';
@@ -121,11 +121,16 @@ componentPrototype._render = function() {
 	ctx.fillText(id, px - 1, py - 1);
 };
 
-componentPrototype._randomise = function() {
+componentPrototype._randomiseColour = function() {
 	var randomColour = Math.floor(0xFFFFFF * Math.random());
 	var hexColour = '#' + randomColour.toString(16);
 	this.colour = hexColour;
 };
+
+componentPrototype.randomise = function() {
+	this._randomiseColour();
+	this._render();
+}
 
 function register(name) {
 	return document.registerElement(name, {

@@ -33,7 +33,7 @@ BellButton.register('bell-button');
 	$('body').append(instanceC);
 })();
 
-// TODO: attributes
+// Attributes
 (function() {
 	var div = $('<div></div>');
 	$('body').append(div);
@@ -73,4 +73,17 @@ BellButton.register('bell-button');
 
 // TODO: callbacks
 // TODO: events, listeners
+
 // TODO: calling methods on the instance
+(function() {
+	console.error('wooopsi');
+	var div = $('<div></div>');
+	$('body').append(div);
+
+	var square = $('<random-square width="200" height="50"></random-square>');
+	div.append(square);
+
+	square[0].randomise();
+
+
+})();
